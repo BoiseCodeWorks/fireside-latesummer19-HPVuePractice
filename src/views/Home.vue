@@ -1,18 +1,28 @@
 <template>
-  <div class="home">
+  <div class="home container-fluid">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="row">
+      <houseComponent v-for="house in houses" :house="house" :key="house._id"></houseComponent>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+  // @ is an alias to /src
+  import houseComponent from '../components/houseComponent'
+  export default {
+    name: 'home',
+    mounted() {
+      this.$store.dispatch('getHouses')
 
-export default {
-  name: 'home',
-  components: {
-    HelloWorld
+    },
+    computed: {
+      houses() {
+        return this.$store.state.houses
+      }
+    },
+    components: {
+      houseComponent
+    }
   }
-}
 </script>
